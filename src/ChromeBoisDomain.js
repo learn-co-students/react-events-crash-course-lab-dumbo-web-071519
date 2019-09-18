@@ -5,6 +5,9 @@ import { drawChromeBoiAtCoords, toggleCycling, resize } from './canvasHelpers.js
 export default class ChromeBoisDomain extends Component {
   
   handleMouseMove = (event) => {
+    let mouseX = event.clientX
+    let mouseY = event.clientY
+    drawChromeBoiAtCoords(mouseX, mouseY)
     /* TODO: This method should capture the `x` and `y` coordinates of the mouse
      * from the event and use them to invoke the `drawChromeBoiAtCoords`
      * function that has been provided and is already imported
@@ -23,6 +26,12 @@ export default class ChromeBoisDomain extends Component {
   /* if the key pressed was 'a', then it should call `resize` with '+'
   /* if the key pressed was 's', then it should call `resize` with '-' 
    */
+
+   sizeHandler = (event) => {
+      let keyVal = event.key
+      if (keyVal === 'a'){ resize("+")}
+      if (keyVal === 's'){ resize("-")}
+   }
   
   render() {
     return (
@@ -30,7 +39,9 @@ export default class ChromeBoisDomain extends Component {
         onMouseMove={this.handleMouseMove}
         width='900'
         height='600'
-        tabIndex="0">
+        tabIndex="0"
+        onClick={ toggleCycling }
+        onKeyUp={ this.sizeHandler }>
       </canvas>
     )
   }
